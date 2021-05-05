@@ -6,18 +6,21 @@ import RestaurantsList, {
   ALL_RESTAURANTS_QUERY,
   allRestaurantsQueryVars,
 } from '../components/RestaurantsList'
-import { initializeApollo, addApolloState } from '../lib/apolloClient'
+import {
+  initializeApollo,
+  addApolloState,
+} from '../lib/apolloClient'
 
-const IndexPage = () => (
+const SSRPage = () => (
   <App>
     <Header />
-    <InfoBox>ℹ️ This page shows how to use SSG with Apollo.</InfoBox>
+    <InfoBox>ℹ️ This page shows how to use SSR with Apollo.</InfoBox>
     <Submit />
     <RestaurantsList />
   </App>
 )
 
-export async function getStaticProps() {
+export async function getServerSideProps () {
   const apolloClient = initializeApollo()
 
   await apolloClient.query({
@@ -27,8 +30,7 @@ export async function getStaticProps() {
 
   return addApolloState(apolloClient, {
     props: {},
-    revalidate: 1,
   })
 }
 
-export default IndexPage
+export default SSRPage
