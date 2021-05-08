@@ -3,6 +3,12 @@ import {
   useMutation,
 } from '@apollo/client'
 
+import {
+  Button,
+  Input,
+  Form,
+} from 'antd'
+
 const CREATE_RESTAURANT_MUTATION = gql`
     mutation createRestaurant($input: createRestaurantInput!) {
         createRestaurant(input: $input) {
@@ -53,13 +59,28 @@ export default function Submit () {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Submit</h1>
-      <input placeholder="name" name="name" type="text" required />
-      <input placeholder="description" name="description" type="text" required />
-      <button type="submit" disabled={loading}>
-        Submit
-      </button>
-    </form>
+    <Form onSubmit={handleSubmit}>
+      <Form.Item
+        label="Name"
+        name="name"
+        rules={[{ required: true, message: 'Please input restaurant name!' }]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="description"
+        name="description"
+        rules={[{ message: 'Please input restaurant description!' }]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item>
+        <Button type="primary" htmlType="submit" disabled={loading}>
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
   )
 }
