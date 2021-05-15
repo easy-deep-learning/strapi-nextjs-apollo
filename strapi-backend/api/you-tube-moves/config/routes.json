@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/you-tube-moves",
+      "handler": "you-tube-moves.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/you-tube-moves/count",
+      "handler": "you-tube-moves.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/you-tube-moves/:id",
+      "handler": "you-tube-moves.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/you-tube-moves",
+      "handler": "you-tube-moves.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/you-tube-moves/:id",
+      "handler": "you-tube-moves.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/you-tube-moves/:id",
+      "handler": "you-tube-moves.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
