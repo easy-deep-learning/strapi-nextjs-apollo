@@ -26,14 +26,7 @@ const CREATE_RESTAURANT_MUTATION = gql`
 export default function Submit () {
   const [createPost, { loading }] = useMutation(CREATE_RESTAURANT_MUTATION)
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    const form = event.target
-    const formData = new window.FormData(form)
-    const name = formData.get('name')
-    const description = formData.get('description')
-    form.reset()
-
+  const createPostHandler = ({ name, description }) => {
     createPost({
       variables: { input: { data: { name, description } } },
       update: (cache, { data: { createRestaurant } }) => {
@@ -56,10 +49,38 @@ export default function Submit () {
         })
       },
     })
+    .then(res => console.log(res))
+    .catch(error => console.error(error))
   }
 
+  const layout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 },
+  }
+
+  const tailLayout = {
+    wrapperCol: { offset: 8, span: 16 },
+  }
+
+  const onFinish = (formData) => {
+    console.log('Success:', formData);
+    createPostHandler(formData)
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
+
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form
+      {...layout}
+      name="basic"
+      initialValues={{
+        remember: true,
+      }}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
+    >
       <Form.Item
         label="Name"
         name="name"
@@ -69,14 +90,14 @@ export default function Submit () {
       </Form.Item>
 
       <Form.Item
-        label="description"
+        label="Description"
         name="description"
         rules={[{ message: 'Please input restaurant description!' }]}
       >
-        <Input />
+        <Input.TextArea />
       </Form.Item>
 
-      <Form.Item>
+      <Form.Item {...tailLayout}>
         <Button type="primary" htmlType="submit" disabled={loading}>
           Submit
         </Button>
