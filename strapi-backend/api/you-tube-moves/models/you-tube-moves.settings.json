@@ -12,23 +12,16 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "url": {
-      "model": "file",
-      "via": "related",
-      "allowedTypes": [
-        "files",
-        "images",
-        "videos"
-      ],
-      "plugin": "upload",
-      "required": true,
-      "pluginOptions": {}
-    },
     "name": {
       "type": "string"
     },
     "description": {
       "type": "richtext"
+    },
+    "url": {
+      "type": "string",
+      "required": true,
+      "unique": true
     }
   }
 }
