@@ -1,23 +1,9 @@
 import ReactPlayer from 'react-player'
-import {
-  EditOutlined,
-  EllipsisOutlined,
-  SettingOutlined,
-  UserOutlined,
-} from '@ant-design/icons'
-import {
-  Avatar,
-  Breadcrumb,
-  Card,
-  Layout,
-  Menu,
-} from 'antd'
-const { Header, Footer, Sider, Content } = Layout
-const { Meta } = Card
 import { GetStaticProps } from 'next'
 import { gql } from '@apollo/client'
 
 import { client } from '../../lib/apolloClient'
+import { CommonLayout } from '../../layouts/CommonLayout'
 
 const GET_YOUTUBE_MOVIE = gql`
   query YouTubeMove($id: ID!) {
@@ -68,46 +54,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 const YoutubeItemPage = ({ pageData }) => {
   console.log("pageData: ", pageData); // eslint-disable-line
-  
   const { data, loading } = pageData
   
   return (
-    <div className={'YoutubeItemPage'}>
-      <Layout>
-        <Header>
-          <Avatar size={64} icon={<UserOutlined />} />
-
-        </Header>
-        <Layout style={{ minHeight: '100vh' }}>
-          <Sider>
-            <Menu theme="light" mode="vertical-left"
-              defaultSelectedKeys={['1']}>
-              <Menu.Item key="1">YoutubePage</Menu.Item>
-            </Menu>
-          </Sider>
-          <Content>
-            <Breadcrumb>
-              <Breadcrumb.Item>
-                <a href="/">Home</a>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>
-                <a href="/youtube">YoutubePage</a>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>
-                item
-              </Breadcrumb.Item>
-            </Breadcrumb>
-
-            <ReactPlayer url={data.youTubeMove.url}/>
-
-          </Content>
-        </Layout>
-        <Footer style={{ textAlign: 'center' }}>
-          ДАННОЕ СООБЩЕНИЕ (МАТЕРИАЛ (ПРОГРАММНОЕ ОБЕС ПЕЧЕНЬЕ)) СОЗДАНО И (ИЛИ) РАСПРОСТРАНЕНО С <br />
-          ЦЕЛЬЮ УЛУЧШЕНИЯ ОБЕС ПЕЧЕНИЯ ЛИЦОМ/ЛИЦАМИ, ВЫПОЛНЯЮЩИМ ФУНКЦИИ/ДИСФУНКЦИИ КОНЪЮНКЦИЙ.
-        </Footer>
-      </Layout>
-    </div>
+    <CommonLayout>
+      <ReactPlayer url={data.youTubeMove.url}/>
+    </CommonLayout>
   )
 }
 
