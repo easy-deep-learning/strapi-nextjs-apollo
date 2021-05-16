@@ -1,6 +1,5 @@
 import {
   gql,
-  useQuery,
 } from '@apollo/client'
 import {
   GetStaticProps,
