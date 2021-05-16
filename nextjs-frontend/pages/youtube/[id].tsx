@@ -1,3 +1,4 @@
+import ReactPlayer from 'react-player'
 import {
   EditOutlined,
   EllipsisOutlined,
@@ -15,6 +16,7 @@ const { Header, Footer, Sider, Content } = Layout
 const { Meta } = Card
 import { GetStaticProps } from 'next'
 import { gql } from '@apollo/client'
+
 import { client } from '../../lib/apolloClient'
 
 const GET_YOUTUBE_MOVIE = gql`
@@ -96,29 +98,7 @@ const YoutubeItemPage = ({ pageData }) => {
               </Breadcrumb.Item>
             </Breadcrumb>
 
-            <Card
-              key={data.youTubeMove.id}
-              style={{ height: '100%' }}
-              cover={
-                <img
-                  alt={data.youTubeMove.name}
-                  src={`https://img.youtube.com/vi/${data.youTubeMove.url.split('watch?v=')[1]}/maxresdefault.jpg`}
-                />
-              }
-              actions={[
-                <SettingOutlined key="setting" />,
-                <EditOutlined key="edit" />,
-                <EllipsisOutlined key="ellipsis" />,
-              ]}
-            >
-              <Meta
-                avatar={<Avatar
-                  src={`https://img.youtube.com/vi/${data.youTubeMove.url.split('watch?v=')[1]}/mqdefault.jpg`} />}
-                title={data.youTubeMove.name}
-                description={data.youTubeMove.description}
-              />
-            </Card>
-
+            <ReactPlayer url={data.youTubeMove.url}/>
 
           </Content>
         </Layout>
