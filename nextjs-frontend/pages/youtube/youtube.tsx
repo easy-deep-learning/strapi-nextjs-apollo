@@ -4,6 +4,7 @@ import {
 import {
   GetStaticProps,
 } from 'next'
+import Link from 'next/link'
 import {
   Avatar,
   Card,
@@ -13,10 +14,10 @@ import {
   EllipsisOutlined,
   SettingOutlined,
 } from '@ant-design/icons'
-const { Meta } = Card
-
 import { client } from '../../lib/apolloClient'
 import { CommonLayout } from '../../layouts/CommonLayout'
+
+const { Meta } = Card
 
 const GET_YOUTUBE_MOVIES = gql`
   query YouTubeMoves {
@@ -37,8 +38,8 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      pageData
-    }
+      pageData,
+    },
   }
 }
 
@@ -50,10 +51,15 @@ export const YoutubePage = ({ pageData }) => {
           key={movie.id}
           style={{ width: 300 }}
           cover={
-            <img
-              alt={movie.name}
-              src={`https://img.youtube.com/vi/${movie.url.split('watch?v=')[1]}/mqdefault.jpg`}
-            />
+            <Link href={`/youtube/${movie.id}`}>
+              <a>
+                <img
+                  alt={movie.name}
+                  src={`https://img.youtube.com/vi/${movie.url.split(
+                    'watch?v=')[1]}/mqdefault.jpg`}
+                />
+              </a>
+            </Link>
           }
           actions={[
             <SettingOutlined key="setting" />,
@@ -63,7 +69,8 @@ export const YoutubePage = ({ pageData }) => {
         >
           <Meta
             avatar={<Avatar
-              src={`https://img.youtube.com/vi/${movie.url.split('watch?v=')[1]}/mqdefault.jpg`} />}
+              src={`https://img.youtube.com/vi/${movie.url.split(
+                'watch?v=')[1]}/mqdefault.jpg`} />}
             title={movie.name}
             description={movie.description}
           />
