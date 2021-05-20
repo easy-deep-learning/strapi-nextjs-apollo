@@ -8,7 +8,9 @@ import {
   Space,
 } from 'antd'
 
-import { client } from '../../lib/apolloClient'
+import {
+  initializeApollo,
+} from '../../lib/apolloClient'
 import { CommonLayout } from '../../layouts/CommonLayout'
 import {
   MovieForm,
@@ -53,8 +55,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
   // why `id` — see the file name: `[id].tsx` 
   const { params: { id } } = context
 
-  const pageData = await client.query(
-    { query: GET_YOUTUBE_MOVIE, variables: { id } })
+  const pageData = await initializeApollo().query({
+      query: GET_YOUTUBE_MOVIE,
+      variables: { id },
+    },
+  )
 
   return {
     props: {

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "frontend:dev": "GRAPGQL_API_URI=http://localhost:1337/graphql next dev",
+    "frontend:dev": "next dev",
     "build": "next build",
     "start": "next start"
   },

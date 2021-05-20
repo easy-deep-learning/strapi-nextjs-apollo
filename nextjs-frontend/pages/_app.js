@@ -1,12 +1,14 @@
 import { ApolloProvider } from '@apollo/client'
-import { client } from '../lib/apolloClient'
+import { useApollo } from '../lib/apolloClient'
 
 import 'antd/dist/antd.css'
 import '../styles/globals.css'
 
 export default function App ({ Component, pageProps }) {
+  const apolloClient = useApollo(pageProps?.initialApolloState)
+
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={apolloClient}>
       <Component {...pageProps} />
     </ApolloProvider>
   )

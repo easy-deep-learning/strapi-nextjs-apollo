@@ -1,5 +1,6 @@
 import {
   gql,
+  useQuery,
 } from '@apollo/client'
 import {
   GetStaticProps,
@@ -14,7 +15,7 @@ import {
   EllipsisOutlined,
   SettingOutlined,
 } from '@ant-design/icons'
-import { client } from '../../lib/apolloClient'
+import { initializeApollo } from '../../lib/apolloClient'
 import { CommonLayout } from '../../layouts/CommonLayout'
 
 const { Meta } = Card
@@ -34,7 +35,9 @@ const GET_YOUTUBE_MOVIES = gql`
 `
 
 export const getStaticProps: GetStaticProps = async () => {
-  const pageData = await client.query({ query: GET_YOUTUBE_MOVIES })
+  const pageData = await initializeApollo().query({
+    query: GET_YOUTUBE_MOVIES,
+  })
 
   return {
     props: {
@@ -44,9 +47,15 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 export const YoutubePage = ({ pageData }) => {
+  const currentData = pageData
+
+  const { loading, error, data } = useQuery(GET_YOUTUBE_MOVIES)
+
+  console.log('data: ', data) // eslint-disable-line
+
   return (
     <CommonLayout>
-      {!pageData.loading && pageData.data?.youTubeMoves?.map(movie => (
+      {!currentData.loading && currentData.data?.youTubeMoves?.map(movie => (
         <Card
           key={movie.id}
           style={{ width: 300 }}

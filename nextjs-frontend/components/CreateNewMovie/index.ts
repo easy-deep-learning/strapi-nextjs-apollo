@@ -1,0 +1,1 @@
+export { CreateNewMovie } from './CreateNewMovie'

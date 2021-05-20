@@ -19,11 +19,12 @@ const MovieForm = ({
   }
 
   const onFinish = (formData) => {
-    console.log('Success:', formData)
+    formHandler(null, formData)
   }
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo)
+    formHandler(errorInfo, null)
   }
 
   return (
@@ -41,7 +42,7 @@ const MovieForm = ({
       >
         <Input />
       </Form.Item>
-      
+
       <Form.Item
         label="Name"
         name="name"
