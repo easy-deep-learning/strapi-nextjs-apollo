@@ -30,9 +30,7 @@ const MovieForm = ({
     <Form
       {...layout}
       name="basic"
-      initialValues={{
-        remember: true,
-      }}
+      initialValues={formData}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
     >
@@ -57,7 +55,7 @@ const MovieForm = ({
         name="description"
         rules={[{ message: 'Please input video description!' }]}
       >
-        <Input.TextArea />
+        <Input.TextArea autoSize showCount />
       </Form.Item>
 
       <Form.Item {...tailLayout}>
