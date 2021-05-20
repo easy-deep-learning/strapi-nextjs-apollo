@@ -37,9 +37,17 @@ const MovieForm = ({
       onFinishFailed={onFinishFailed}
     >
       <Form.Item
+        label="URL"
+        name="url"
+        rules={[{ required: true, message: 'Please input video name!' }]}
+      >
+        <Input />
+      </Form.Item>
+      
+      <Form.Item
         label="Name"
         name="name"
-        rules={[{ required: true, message: 'Please input restaurant name!' }]}
+        rules={[{ required: true, message: 'Please input video name!' }]}
       >
         <Input />
       </Form.Item>
@@ -47,7 +55,7 @@ const MovieForm = ({
       <Form.Item
         label="Description"
         name="description"
-        rules={[{ message: 'Please input restaurant description!' }]}
+        rules={[{ message: 'Please input video description!' }]}
       >
         <Input.TextArea />
       </Form.Item>

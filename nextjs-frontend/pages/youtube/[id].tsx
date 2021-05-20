@@ -3,13 +3,17 @@ import ReactPlayer from 'react-player'
 import { GetStaticProps } from 'next'
 import { gql } from '@apollo/client'
 import {
-  Descriptions,
-  Button,
+  Row,
+  Col,
+  Space,
 } from 'antd'
 
 import { client } from '../../lib/apolloClient'
 import { CommonLayout } from '../../layouts/CommonLayout'
-import { MovieForm, MovieDescription } from '../../components';
+import {
+  MovieForm,
+  MovieDescription,
+} from '../../components'
 
 const GET_YOUTUBE_MOVIE = gql`
   query YouTubeMove($id: ID!) {
@@ -61,18 +65,23 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 const YoutubeItemPage = ({ pageData }) => {
   const { data: { youTubeMove }, loading } = pageData
-  
+
   const [isEditMode, setEditMode] = useState(false)
 
   return (
     <CommonLayout>
-      <ReactPlayer url={youTubeMove.url} />
-      
-      {isEditMode ? (
-        <MovieForm formData={youTubeMove} formHandler={() => {}} onButtonClick={() => {setEditMode(false)}} />
-      ) : (
-        <MovieDescription movie={youTubeMove} onButtonClick={() => setEditMode(true)} />
-      )}
+      <Row gutter={[0, 48]}>
+        <Col><ReactPlayer url={youTubeMove.url} /></Col>
+        <Col span={16}>
+          {isEditMode ? (
+            <MovieForm formData={youTubeMove} formHandler={() => {}}
+              onButtonClick={() => {setEditMode(false)}} />
+          ) : (
+            <MovieDescription movie={youTubeMove}
+              onButtonClick={() => setEditMode(true)} />
+          )}
+        </Col>
+      </Row>
 
     </CommonLayout>
   )
