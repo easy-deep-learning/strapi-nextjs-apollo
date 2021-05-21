@@ -1,5 +1,6 @@
 import {
   gql,
+  useMutation,
   useQuery,
 } from '@apollo/client'
 import {
@@ -9,16 +10,20 @@ import Link from 'next/link'
 import {
   Avatar,
   Card,
+  Popconfirm,
+  Button,
+  message,
 } from 'antd'
 import {
   EditOutlined,
-  EllipsisOutlined,
-  SettingOutlined,
+  DeleteOutlined,
 } from '@ant-design/icons'
 import { initializeApollo } from '../../lib/apolloClient'
 import { CommonLayout } from '../../layouts/CommonLayout'
 
 const { Meta } = Card
+
+const text = 'Are you sure to delete this task?'
 
 const GET_YOUTUBE_MOVIES = gql`
   query YouTubeMoves {
@@ -30,6 +35,16 @@ const GET_YOUTUBE_MOVIES = gql`
       created_at
       updated_at
       published_at
+    }
+  }
+`
+
+const DELETE_YOUTUBE_MOVIES = gql`
+  mutation DeleteYouTubeMove($input: deleteYouTubeMoveInput) {
+    deleteYouTubeMove(input: $input) {
+      youTubeMove {
+        id
+      }
     }
   }
 `
@@ -48,12 +63,14 @@ export const getStaticProps: GetStaticProps = async () => {
 
 export const YoutubePage = ({ pageData }) => {
   const data = useQuery(GET_YOUTUBE_MOVIES, { pollInterval: 500 })
+  const [deleteMovie, deleteMovieResult] = useMutation(DELETE_YOUTUBE_MOVIES)
   const currentData = data || pageData
 
   return (
     <CommonLayout>
       {!currentData.loading && currentData.data?.youTubeMoves?.map(movie => (
         <Card
+          loading={currentData.loading}
           key={movie.id}
           style={{ width: 300 }}
           cover={
@@ -68,9 +85,19 @@ export const YoutubePage = ({ pageData }) => {
             </Link>
           }
           actions={[
-            <SettingOutlined key="setting" />,
+            <Popconfirm
+              placement="rightTop"
+              title={text}
+              onConfirm={() => {
+                deleteMovie(
+                  { variables: { input: { where: { id: movie.id } } } })
+              }}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button><DeleteOutlined /></Button>
+            </Popconfirm>,
             <EditOutlined key="edit" onClick={() => {}} />,
-            <EllipsisOutlined key="ellipsis" />,
           ]}
         >
           <Meta
