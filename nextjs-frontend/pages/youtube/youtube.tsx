@@ -47,11 +47,8 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 export const YoutubePage = ({ pageData }) => {
-  const currentData = pageData
-
-  const { loading, error, data } = useQuery(GET_YOUTUBE_MOVIES)
-
-  console.log('data: ', data) // eslint-disable-line
+  const data = useQuery(GET_YOUTUBE_MOVIES, { pollInterval: 500 })
+  const currentData = data || pageData
 
   return (
     <CommonLayout>
@@ -72,7 +69,7 @@ export const YoutubePage = ({ pageData }) => {
           }
           actions={[
             <SettingOutlined key="setting" />,
-            <EditOutlined key="edit" />,
+            <EditOutlined key="edit" onClick={() => {}} />,
             <EllipsisOutlined key="ellipsis" />,
           ]}
         >
@@ -88,7 +85,3 @@ export const YoutubePage = ({ pageData }) => {
     </CommonLayout>
   )
 }
-
-
-
-

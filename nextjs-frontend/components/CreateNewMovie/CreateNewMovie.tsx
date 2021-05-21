@@ -2,6 +2,8 @@ import {
   gql,
   useMutation,
 } from '@apollo/client'
+import { useRouter } from 'next/router'
+
 import { MovieForm } from '../../components/MovieForm'
 
 const CREATE_YOUTUBE_MOVIE = gql`
@@ -19,17 +21,20 @@ const CREATE_YOUTUBE_MOVIE = gql`
 
 export const CreateNewMovie = () => {
   const [create, result] = useMutation(CREATE_YOUTUBE_MOVIE)
-  console.log('result: ', result) // eslint-disable-line
+  const router = useRouter()
+
+  if (result.data?.createYouTubeMove.youTubeMove.id) {
+    router.push(`/youtube/${result.data?.createYouTubeMove.youTubeMove.id}`)
+  }
 
   return (
     <MovieForm
       formData={{}}
-      formHandler={async (err, formData) => {
+      formHandler={(err, formData) => {
         if (err) {
           console.warn(err)
           return
         }
-
         create({ variables: { input: { data: formData } } })
       }}
     />

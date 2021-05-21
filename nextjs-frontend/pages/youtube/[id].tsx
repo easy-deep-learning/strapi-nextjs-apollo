@@ -31,11 +31,25 @@ const GET_YOUTUBE_MOVIE = gql`
   }
 `
 
-export const getStaticPaths = () => {
-  const paths = [
-    { params: { id: '1' } },
-    { params: { id: '2' } },
-  ]
+const GET_YOUTUBE_MOVIES_IDS = gql`
+  query YouTubeMoves {
+    youTubeMoves {
+      id
+    }
+  }
+`
+
+export const getStaticPaths = async () => {
+  const pageData = await initializeApollo().query({
+      query: GET_YOUTUBE_MOVIES_IDS,
+    },
+  )
+  const youTubeMoves = pageData?.data?.youTubeMoves
+  const paths = youTubeMoves.map(movie => ({
+    params: {
+      id: movie.id,
+    },
+  }))
 
   return {
     // required key
