@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import ReactPlayer from 'react-player'
 import { GetStaticProps } from 'next'
-import { gql } from '@apollo/client'
+import {
+  gql,
+  useMutation,
+} from '@apollo/client'
 import {
   Row,
   Col,
@@ -35,6 +38,19 @@ const GET_YOUTUBE_MOVIES_IDS = gql`
   query YouTubeMoves {
     youTubeMoves {
       id
+    }
+  }
+`
+
+const UPDATE_YOUTUBE_MOVIE = gql`
+  mutation updateYouTubeMove($input: updateYouTubeMoveInput) {
+    updateYouTubeMove(input: $input) {
+      youTubeMove {
+        name
+        description
+        url
+        updated_at
+      }
     }
   }
 `
@@ -86,18 +102,42 @@ const YoutubeItemPage = ({ pageData }) => {
   const { data: { youTubeMove }, loading } = pageData
 
   const [isEditMode, setEditMode] = useState(false)
+  const [editMovie, editMovieResult] = useMutation(UPDATE_YOUTUBE_MOVIE)
+
+  const currentYouTubeMove = editMovieResult.data?.updateYouTubeMove?.youTubeMove
+    ? editMovieResult.data?.updateYouTubeMove?.youTubeMove
+    : youTubeMove
 
   return (
     <CommonLayout>
       <Row gutter={[0, 48]}>
-        <Col><ReactPlayer url={youTubeMove.url} /></Col>
+        <Col><ReactPlayer url={currentYouTubeMove.url} /></Col>
         <Col span={16}>
           {isEditMode ? (
-            <MovieForm formData={youTubeMove} formHandler={() => {}}
-              onButtonClick={() => {setEditMode(false)}} />
+            <MovieForm
+              formData={currentYouTubeMove}
+              formHandler={(err, formData) => {
+                editMovie(
+                  {
+                    variables: {
+                      input: {
+                        where: {
+                          id: currentYouTubeMove.id,
+                        },
+                        data: {
+                          ...formData,
+                        },
+                      },
+                    },
+                  })
+              }}
+              onButtonClick={() => {setEditMode(false)}}
+            />
           ) : (
-            <MovieDescription movie={youTubeMove}
-              onButtonClick={() => setEditMode(true)} />
+            <MovieDescription
+              movie={currentYouTubeMove}
+              onButtonClick={() => setEditMode(true)}
+            />
           )}
         </Col>
       </Row>
