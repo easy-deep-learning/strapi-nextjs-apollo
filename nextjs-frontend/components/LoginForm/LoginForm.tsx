@@ -1,4 +1,8 @@
 import {
+  gql,
+  useMutation,
+} from '@apollo/client'
+import {
   Button,
   Form,
   Input,
@@ -9,11 +13,25 @@ import {
   EyeInvisibleOutlined,
 } from '@ant-design/icons'
 
+const LOGIN = gql`
+  mutation login($input: UsersPermissionsLoginInput!) {
+    login(input: $input) {
+      jwt
+      user {
+        username
+      }
+    }
+  }
+`
+
 const LoginForm = ({
   formHandler,
   formData,
   formState = { disabled: false },
 }) => {
+  const [login, loginResult] = useMutation(LOGIN)
+  console.log('loginResult: ', loginResult) // eslint-disable-line
+
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
@@ -22,7 +40,17 @@ const LoginForm = ({
     wrapperCol: { offset: 8, span: 16 },
   }
 
-  const onFinish = (formData) => {
+  const onFinish = async (formData) => {
+    await login({
+      variables: {
+        input: {
+          identifier: formData.email,
+          password: formData.password,
+          provider: 'local',
+        },
+      },
+    })
+
     formHandler(null, formData)
   }
 

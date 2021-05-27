@@ -6,6 +6,7 @@ const IndexPage = () => {
     <CommonLayout>
       <LoginForm
         formHandler={(err, data) => {
+          console.log('err: ', err) // eslint-disable-line
           console.log('data: ', data) // eslint-disable-line
         }}
         formData={{ username: null, password: null }}
