@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import {
   gql,
   useMutation,
@@ -18,6 +19,7 @@ const LOGIN = gql`
     login(input: $input) {
       jwt
       user {
+        id
         username
       }
     }
@@ -30,7 +32,13 @@ const LoginForm = ({
   formState = { disabled: false },
 }) => {
   const [login, loginResult] = useMutation(LOGIN)
-  console.log('loginResult: ', loginResult) // eslint-disable-line
+  const router = useRouter()
+
+  const user = loginResult.data?.login?.user
+
+  if (user?.id) {
+    router.push('/youtube')
+  }
 
   const layout = {
     labelCol: { span: 8 },

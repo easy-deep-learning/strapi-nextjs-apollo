@@ -12,7 +12,7 @@ function createApolloClient () {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
     link: new HttpLink({
-      uri: process.env.NEXT_PUBLIC_GRAPHQL_API_URI,  // Add your Slash endpoint here 
+      uri: process.env.NEXT_PUBLIC_GRAPHQL_API_URI,
     }),
     cache: new InMemoryCache(),
   })
