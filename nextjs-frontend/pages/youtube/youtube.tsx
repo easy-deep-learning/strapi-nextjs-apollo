@@ -96,7 +96,7 @@ export const YoutubePage = ({ pageData }) => {
             >
               <Button><DeleteOutlined /></Button>
             </Popconfirm>,
-            <EditOutlined key="edit" onClick={() => {}} />,
+            <Link href={`/youtube/${movie.id}`}><a><EditOutlined key="edit" /></a></Link>,
           ]}
         >
           <Meta
