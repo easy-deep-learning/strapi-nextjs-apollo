@@ -1,0 +1,9 @@
+.root {
+  display: flex;
+  align-items: center;
+}
+
+.name {
+  color: azure;
+  margin: 0 0 0 10px;
+}

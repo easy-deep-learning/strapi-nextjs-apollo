@@ -2,17 +2,43 @@ import {
   UserOutlined,
 } from '@ant-design/icons'
 import { default as HeadNext } from 'next/head'
+import {
+  gql,
+  useQuery,
+} from '@apollo/client'
 
 import {
   Layout,
   Breadcrumb,
   Menu,
-  Avatar,
 } from 'antd'
+import { CurrentUser } from '../../components'
 
 const { Header, Footer, Sider, Content } = Layout
 
+const ME = gql`
+  query me {
+    me {
+      id
+      username
+      confirmed
+      blocked
+      role {
+        id
+        name
+        description
+        type
+      }
+    }
+  }
+`
+
 const CommonLayout = ({ children }) => {
+  const meResult = useQuery(ME)
+
+  console.log('meResult: ', meResult) // eslint-disable-line
+  const currentUser: { blocked: boolean, confirmed: boolean, id: string, role: object, username: string } = meResult.data?.me
+
   return (
     <>
       <HeadNext>
@@ -28,8 +54,7 @@ const CommonLayout = ({ children }) => {
 
       <Layout>
         <Header>
-          <Avatar size={64} icon={<UserOutlined />} />
-
+          <CurrentUser user={currentUser} />
         </Header>
         <Layout style={{ minHeight: '100vh' }}>
           <Sider>

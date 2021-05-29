@@ -61,7 +61,7 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 export const YoutubePage = ({ pageData }) => {
-  const data = useQuery(GET_YOUTUBE_MOVIES, { pollInterval: 500 })
+  const data = useQuery(GET_YOUTUBE_MOVIES, { pollInterval: 5000 })
   const [deleteMovie, deleteMovieResult] = useMutation(DELETE_YOUTUBE_MOVIES)
   const currentData = data || pageData
 

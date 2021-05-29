@@ -10,12 +10,10 @@ module.exports = async (ctx, next) => {
     return next()
   }
 
-  if (ctx.request && ctx.request.header && ctx.request.header.authorization) {
-    const token = ctx.cookies.get('token')
+  const token = ctx.cookies.get('token')
 
-    if (token) {
-      ctx.request.header.authorization = 'Bearer ' + token
-    }
+  if (token) {
+    ctx.request.header.authorization = 'Bearer ' + token
 
     try {
       const { id } = await strapi.plugins['users-permissions'].services.jwt.getToken(ctx)
