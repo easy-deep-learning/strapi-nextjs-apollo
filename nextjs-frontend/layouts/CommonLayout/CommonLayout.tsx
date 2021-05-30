@@ -1,3 +1,4 @@
+import React from 'react'
 import { default as HeadNext } from 'next/head'
 import {
   gql,
@@ -31,10 +32,28 @@ const ME = gql`
   }
 `
 
+type User = {
+  blocked: boolean
+  confirmed: boolean
+  id: string
+  role: {
+    description: string
+    id: string
+    name: string
+    type: string
+  }
+  username: string
+}
+
+const UserContext = React.createContext<User>(null)
+
 const CommonLayout = ({ children }) => {
   const meResult = useQuery(ME,
     {
       onError: (error) => {
+        console.log(error.graphQLErrors) // eslint-disable-line
+        return
+
         notification.open({
           message: 'Current user',
           description: error.message,
@@ -45,12 +64,12 @@ const CommonLayout = ({ children }) => {
       },
     },
   )
-
-  console.log('meResult: ', meResult) // eslint-disable-line
-  const currentUser: { blocked: boolean, confirmed: boolean, id: string, role: object, username: string } = meResult.data?.me
+  const currentUser: User = meResult.data?.me || null
 
   return (
-    <>
+    <UserContext.Provider
+      value={currentUser}
+    >
       <HeadNext>
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -92,8 +111,11 @@ const CommonLayout = ({ children }) => {
           ЦЕЛЬЮ УЛУЧШЕНИЯ ОБЕС ПЕЧЕНИЯ ЛИЦОМ/ЛИЦАМИ, ВЫПОЛНЯЮЩИМ ФУНКЦИИ/ДИСФУНКЦИИ КОНЪЮНКЦИЙ.
         </Footer>
       </Layout>
-    </>
+    </UserContext.Provider>
   )
 }
 
-export { CommonLayout }
+export {
+  CommonLayout,
+  UserContext,
+}

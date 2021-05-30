@@ -42,6 +42,15 @@ const CurrentUser: React.FC<CurrentUserProps> = ({ user }) => {
           >Logout</Button>
         )}
       </div>
+      <div>
+        {!user && (
+          <Button
+            onClick={() => {router.push('/login')}}
+          >
+            Login
+          </Button>
+        )}
+      </div>
     </div>
   )
 }

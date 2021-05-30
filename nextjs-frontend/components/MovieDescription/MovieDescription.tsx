@@ -2,18 +2,25 @@ import {
   Button,
   Descriptions,
 } from 'antd'
+import { useContext } from 'react'
+
+import { UserContext } from '../../layouts/CommonLayout'
 
 const MovieDescription = ({
   movie,
   onButtonClick,
 }) => {
 
+  const user = useContext(UserContext)
+
+  console.log('user: ', user) // eslint-disable-line
+
   return (
     <Descriptions
       title="Video Info"
       bordered
       size="small"
-      extra={<Button type="primary" onClick={onButtonClick}>Edit</Button>}
+      extra={<Button type="primary" disabled={!user || user.role.type !== 'authenticated'} onClick={onButtonClick}>Edit</Button>}
       column={1}
     >
       <Descriptions.Item label="name">{movie.name}</Descriptions.Item>

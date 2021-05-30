@@ -3,6 +3,9 @@ import {
   Form,
   Input,
 } from 'antd'
+import { useContext } from 'react'
+
+import { UserContext } from '../../layouts/CommonLayout'
 
 const MovieForm = ({
   formHandler,
@@ -26,6 +29,7 @@ const MovieForm = ({
     console.log('Failed:', errorInfo)
     formHandler(errorInfo, null)
   }
+  const user = useContext(UserContext)
 
   return (
     <Form
@@ -60,7 +64,7 @@ const MovieForm = ({
       </Form.Item>
 
       <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit" disabled={formState.disabled}>
+        <Button type="primary" htmlType="submit" disabled={formState.disabled || !user || user.role.type !== 'authenticated'}>
           Submit
         </Button>
 

@@ -1,4 +1,7 @@
-import { useState } from 'react'
+import {
+  useState,
+  useContext,
+} from 'react'
 import ReactPlayer from 'react-player'
 import { GetStaticProps } from 'next'
 import {
