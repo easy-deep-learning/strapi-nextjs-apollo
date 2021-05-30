@@ -7,6 +7,7 @@ import {
   Button,
   Form,
   Input,
+  notification,
 } from 'antd'
 
 import {
@@ -31,7 +32,17 @@ const LoginForm = ({
   formData,
   formState = { disabled: false },
 }) => {
-  const [login, loginResult] = useMutation(LOGIN)
+  const [login, loginResult] = useMutation(LOGIN, {
+    onError: (error) => {
+      notification.open({
+        message: 'Login error',
+        description: error.message,
+        onClick: () => {
+          console.log('Notification Clicked!')
+        },
+      })
+    },
+  })
   const router = useRouter()
 
   const user = loginResult.data?.login?.user

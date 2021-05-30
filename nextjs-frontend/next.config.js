@@ -9,6 +9,10 @@ module.exports = {
           source: '/graphql',
           destination: process.env.STRAPI_GRAPHQL_API_URI,
         },
+        {
+          source: '/logout',
+          destination: `${process.env.STRAPI_BACKEND_URI}/logout`,
+        },
       ],
     }
   },

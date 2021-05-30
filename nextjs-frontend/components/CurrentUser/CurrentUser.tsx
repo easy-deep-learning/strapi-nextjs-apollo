@@ -1,7 +1,8 @@
 import React from 'react'
-import { UserOutlined } from '@ant-design/icons'
+import { useRouter } from 'next/router'
 import {
   Avatar,
+  Button,
 } from 'antd'
 
 import styles from './CurrentUser.module.css'
@@ -17,10 +18,30 @@ type CurrentUserProps = {
 }
 
 const CurrentUser: React.FC<CurrentUserProps> = ({ user }) => {
+  const router = useRouter()
+
   return (
     <div className={styles.root}>
       <Avatar style={{ backgroundColor: '#87d068' }} size={32}>{user ? user.username[0] : '<>'}</Avatar>
       <div className={styles.name}>{user ? user.username : 'Not logged'}</div>
+      <div>
+        {user && (
+          <Button
+            onClick={async () => {
+              await fetch(
+                '/logout',
+                {
+                  method: 'post',
+                }).catch((error) => {
+                console.error('Error:', error)
+              })
+
+              router.reload()
+            }
+            }
+          >Logout</Button>
+        )}
+      </div>
     </div>
   )
 }

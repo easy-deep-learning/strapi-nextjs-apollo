@@ -1,6 +1,3 @@
-import {
-  UserOutlined,
-} from '@ant-design/icons'
 import { default as HeadNext } from 'next/head'
 import {
   gql,
@@ -11,6 +8,7 @@ import {
   Layout,
   Breadcrumb,
   Menu,
+  notification,
 } from 'antd'
 import { CurrentUser } from '../../components'
 
@@ -34,7 +32,19 @@ const ME = gql`
 `
 
 const CommonLayout = ({ children }) => {
-  const meResult = useQuery(ME)
+  const meResult = useQuery(ME,
+    {
+      onError: (error) => {
+        notification.open({
+          message: 'Current user',
+          description: error.message,
+          onClick: () => {
+            console.log('Notification Clicked!')
+          },
+        })
+      },
+    },
+  )
 
   console.log('meResult: ', meResult) // eslint-disable-line
   const currentUser: { blocked: boolean, confirmed: boolean, id: string, role: object, username: string } = meResult.data?.me
