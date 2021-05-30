@@ -1,5 +1,3 @@
-import { useContext } from 'react'
-
 import {
   gql,
   useMutation,
@@ -22,7 +20,6 @@ import {
 import { initializeApollo } from '../../lib/apolloClient'
 import {
   CommonLayout,
-  UserContext,
 } from '../../layouts/CommonLayout'
 
 const { Meta } = Card
@@ -69,10 +66,6 @@ export const YoutubePage = ({ pageData }) => {
   const data = useQuery(GET_YOUTUBE_MOVIES, { pollInterval: 5000 })
   const [deleteMovie, deleteMovieResult] = useMutation(DELETE_YOUTUBE_MOVIES)
   const currentData = data || pageData
-
-  const user = useContext(UserContext)
-
-  console.log('user: ', user) // eslint-disable-line
 
   return (
     <CommonLayout>
