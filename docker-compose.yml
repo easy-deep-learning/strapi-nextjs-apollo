@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+
+  #  frontend:
+  #    build: ./nextjs-frontend
+  #    ports:
+  #      - "3000:80"
+  #    environment:
+  #      NEXT_PUBLIC_FRONTEND_URI: http://localhost:3000
+  #      NEXT_PUBLIC_GRAPHQL_API_URI: http://localhost:3000/graphql
+  #      STRAPI_BACKEND_URI: http://backend:1337
+  #      STRAPI_GRAPHQL_API_URI: http://backend:1337/graphql
+
+  nginx:
+    image: nginx:alpine:3.13
+    volumes:
+      - ./nginx/config/nginx.development.conf:/etc/nginx/nginx.development.conf:ro
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - backend
+
+  backend:
+    build: ./strapi-backend
+    ports:
+      - "1337:1337"
