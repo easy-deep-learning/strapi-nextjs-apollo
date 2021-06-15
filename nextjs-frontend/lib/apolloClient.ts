@@ -9,12 +9,14 @@ import {
 let apolloClient: ApolloClient<NormalizedCacheObject>
 
 function createApolloClient () {
+  const link = new HttpLink({
+    uri: (operation) => `${process.env.NEXT_PUBLIC_BACKEND_URI}/graphql?${encodeURIComponent(operation.operationName)}`,
+  })
+
   return new ApolloClient({
-    credentials: 'same-origin',
+    credentials: 'include',
     ssrMode: typeof window === 'undefined',
-    link: new HttpLink({
-      uri: process.env.NEXT_PUBLIC_GRAPHQL_API_URI,
-    }),
+    link,
     cache: new InMemoryCache(),
   })
 }

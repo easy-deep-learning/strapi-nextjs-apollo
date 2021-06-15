@@ -139,7 +139,7 @@ module.exports = {
           path: '/',
           secure: process.env.NODE_ENV === 'production',
           maxAge: 1000 * 60 * 60 * 24 * 14, // 14 Day Age
-          domain: process.env.FRONTEND_DOMAIN,
+          domain: process.env.COOKIE_AUTH_DOMAIN_WITH_PORT_IF_NOT_DEFAULTS,
         })
 
         ctx.send({
@@ -185,7 +185,7 @@ module.exports = {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         maxAge: 1000 * 60 * 60 * 24 * 14, // 14 Day Age
-        domain: process.env.FRONTEND_DOMAIN,
+        domain: process.env.COOKIE_AUTH_DOMAIN_WITH_PORT_IF_NOT_DEFAULTS,
       })
 
       ctx.send({
@@ -236,7 +236,7 @@ module.exports = {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         maxAge: 1000 * 60 * 60 * 24 * 14, // 14 Day Age
-        domain: process.env.FRONTEND_DOMAIN,
+        domain: process.env.COOKIE_AUTH_DOMAIN_WITH_PORT_IF_NOT_DEFAULTS,
       })
 
       ctx.send({
@@ -546,7 +546,7 @@ module.exports = {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         maxAge: 1000 * 60 * 60 * 24 * 14, // 14 Day Age
-        domain: process.env.FRONTEND_DOMAIN,
+        domain: process.env.COOKIE_AUTH_DOMAIN_WITH_PORT_IF_NOT_DEFAULTS,
       })
 
       return ctx.send({
