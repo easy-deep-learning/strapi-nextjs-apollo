@@ -6,6 +6,7 @@ RUN apk add --no-cache libc6-compat
 # strapi deps
 # https://github.com/strapi/strapi-docker/blob/master/base/alpine/Dockerfile
 RUN apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev nasm bash
+RUN apk --no-cache --virtual build-dependencies add python make g++
 WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
