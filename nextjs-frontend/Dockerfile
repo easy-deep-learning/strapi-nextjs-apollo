@@ -12,13 +12,16 @@ FROM node:14-alpine AS builder
 WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
+
+ARG NODE_ENV
+ARG NEXT_PUBLIC_GRAPHQL_API_URI
+ARG NEXT_PUBLIC_GRAPHQL_API_URI_SSR
+
 RUN yarn build
 
 # Production image, copy all the files and run next
 FROM node:14-alpine AS runner
 WORKDIR /app
-
-ENV NODE_ENV production
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001

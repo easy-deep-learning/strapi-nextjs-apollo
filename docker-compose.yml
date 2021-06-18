@@ -2,15 +2,15 @@ version: '3'
 
 services:
 
-  #  frontend:
-  #    build: ./nextjs-frontend
-  #    ports:
-  #      - "3000:80"
-  #    environment:
-  #      NEXT_PUBLIC_FRONTEND_URI: http://localhost:3000
-  #      NEXT_PUBLIC_GRAPHQL_API_URI: http://localhost:3000/graphql
-  #      STRAPI_BACKEND_URI: http://backend:1337
-  #      STRAPI_GRAPHQL_API_URI: http://backend:1337/graphql
+  frontend:
+    build:
+      context: ./nextjs-frontend
+      args:
+        NEXT_PUBLIC_GRAPHQL_API_URI: 'http://easy-deep-learning.local/graphql'
+        NEXT_PUBLIC_GRAPHQL_API_URI_SSR: 'http://backend:1337/graphql'
+        NODE_ENV: production
+    depends_on:
+      - backend
 
   nginx:
     image: nginx:1.21.0-alpine

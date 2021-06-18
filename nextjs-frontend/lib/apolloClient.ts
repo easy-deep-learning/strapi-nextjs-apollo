@@ -9,8 +9,14 @@ import {
 let apolloClient: ApolloClient<NormalizedCacheObject>
 
 function createApolloClient () {
+  const GRAPHQL_API = typeof window === 'undefined' ?
+    process.env.NEXT_PUBLIC_GRAPHQL_API_URI_SSR :
+    process.env.NEXT_PUBLIC_GRAPHQL_API_URI
+
+  console.log('GRAPHQL_API: ', GRAPHQL_API) // eslint-disable-line
+
   const link = new HttpLink({
-    uri: (operation) => `${process.env.NEXT_PUBLIC_BACKEND_URI}/graphql?${encodeURIComponent(operation.operationName)}`,
+    uri: (operation) => `${GRAPHQL_API}?${encodeURIComponent(operation.operationName)}`,
   })
 
   return new ApolloClient({
