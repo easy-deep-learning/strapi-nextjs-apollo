@@ -4,7 +4,7 @@ import {
   useQuery,
 } from '@apollo/client'
 import {
-  GetStaticProps,
+  GetServerSideProps,
 } from 'next'
 import Link from 'next/link'
 import {
@@ -50,7 +50,7 @@ const DELETE_YOUTUBE_MOVIES = gql`
   }
 `
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const pageData = await initializeApollo().query({
     query: GET_YOUTUBE_MOVIES,
   })
@@ -62,7 +62,7 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
-export const YoutubePage = ({ pageData }) => {
+const YoutubePage = ({ pageData }) => {
   const data = useQuery(GET_YOUTUBE_MOVIES, { pollInterval: 5000 })
   const [deleteMovie, deleteMovieResult] = useMutation(DELETE_YOUTUBE_MOVIES)
   const currentData = data || pageData
@@ -113,3 +113,5 @@ export const YoutubePage = ({ pageData }) => {
     </CommonLayout>
   )
 }
+
+export default YoutubePage

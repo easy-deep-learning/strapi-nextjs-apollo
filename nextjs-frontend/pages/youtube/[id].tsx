@@ -1,9 +1,8 @@
 import {
   useState,
-  useContext,
 } from 'react'
 import ReactPlayer from 'react-player'
-import { GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import {
   gql,
   useMutation,
@@ -58,33 +57,12 @@ const UPDATE_YOUTUBE_MOVIE = gql`
   }
 `
 
-export const getStaticPaths = async () => {
-  const pageData = await initializeApollo().query({
-      query: GET_YOUTUBE_MOVIES_IDS,
-    },
-  )
-  const youTubeMoves = pageData?.data?.youTubeMoves
-  const paths = youTubeMoves.map(movie => ({
-    params: {
-      id: movie.id,
-    },
-  }))
-
-  return {
-    // required key
-    paths,
-    // https://nextjs.org/docs/basic-features/data-fetching#fallback-false
-    fallback: false,
-  }
-
-}
-
 /**
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  *
  * @param context
  */
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   // why `id` — see the file name: `[id].tsx` 
   const { params: { id } } = context
 
