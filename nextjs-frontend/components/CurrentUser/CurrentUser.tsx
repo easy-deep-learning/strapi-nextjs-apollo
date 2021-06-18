@@ -29,7 +29,7 @@ const CurrentUser: React.FC<CurrentUserProps> = ({ user }) => {
           <Button
             onClick={async () => {
               await fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_URI}/logout`,
+                '/logout',
                 {
                   method: 'post',
                 }).catch((error) => {

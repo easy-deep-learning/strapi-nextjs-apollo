@@ -22,7 +22,7 @@ RUN yarn build
 FROM node:14-alpine AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
+ARG NODE_ENV
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S strapi -u 1001
