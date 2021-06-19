@@ -55,6 +55,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
     query: GET_YOUTUBE_MOVIES,
   })
 
+  console.log('pageData: ', pageData) // eslint-disable-line
+
   return {
     props: {
       pageData,

@@ -27,6 +27,8 @@ ARG NODE_ENV
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S strapi -u 1001
 
+RUN mkdir /app/.tmp && chown strapi:nodejs  /app/.tmp
+
 COPY --from=builder /app/api ./api
 COPY --from=builder /app/build ./build
 COPY --from=builder /app/config ./config
