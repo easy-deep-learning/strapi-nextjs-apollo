@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+
+  frontend:
+    build:
+      context: ./nextjs-frontend
+      args:
+        NEXT_PUBLIC_GRAPHQL_API_URI: 'http://easy-deep-learning.local/graphql'
+        NEXT_PUBLIC_GRAPHQL_API_URI_SSR: 'http://backend:1337/graphql'
+        NODE_ENV: production
+    depends_on:
+      - backend
+
+  nginx:
+    image: nginx:1.21.0-alpine
+    volumes:
+      - ./nginx/config/nginx.development.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - backend
+      - frontend
+
+  backend:
+    build:
+      context: ./strapi-backend
+      args:
+        NODE_ENV: development # till SSL enabled
+    ports:
+      - "1337:1337"
