@@ -38,7 +38,7 @@ jobs:
         with:
           push: true
           tags: user/app:latest
-          context: /strapi-backend
+          context: ./strapi-backend
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
