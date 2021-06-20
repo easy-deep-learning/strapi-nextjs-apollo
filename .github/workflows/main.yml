@@ -37,7 +37,7 @@ jobs:
         uses: docker/build-push-action@v2.5.0
         with:
           push: true
-          tags: user/app:latest
+          tags: alexbaumgertner/strapi-backend:latest
           context: ./strapi-backend
       -
         name: Image digest
