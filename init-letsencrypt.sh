@@ -8,7 +8,7 @@ fi
 domains=(easy-deep-learning.org www.easy-deep-learning.org)
 rsa_key_size=4096
 data_path="./nginx/certbot"
-email="" # Adding a valid address is strongly recommended
+email="easy.deep.learning@gmail.com" # Adding a valid address is strongly recommended
 staging=0 # Set to 1 if you're testing your setup to avoid hitting request limits
 
 if [ -d "$data_path" ]; then
@@ -66,7 +66,7 @@ esac
 # Enable staging mode if needed
 if [ $staging != "0" ]; then staging_arg="--staging"; fi
 
-docker-compose run --rm --entrypoint "\
+docker-compose -f docker-compose-prod.yml run --rm --entrypoint "\
   certbot certonly --webroot -w /var/www/certbot \
     $staging_arg \
     $email_arg \
@@ -77,4 +77,4 @@ docker-compose run --rm --entrypoint "\
 echo
 
 echo "### Reloading nginx ..."
-docker-compose exec nginx nginx -s reload
+docker-compose -f docker-compose-prod.yml exec nginx nginx -s reload
