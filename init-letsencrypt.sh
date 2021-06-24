@@ -5,7 +5,7 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-domains=(easy-deep-learning.org www.easy-deep-learning.org)
+domains=(easy-deep-learning.org www.easy-deep-learning.org admin.easy-deep-learning.org www.admin.easy-deep-learning.org)
 rsa_key_size=4096
 data_path="./nginx/certbot"
 email="easy.deep.learning@gmail.com" # Adding a valid address is strongly recommended
