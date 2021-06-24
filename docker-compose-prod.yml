@@ -7,7 +7,7 @@ services:
       context: ./nextjs-frontend
       args:
         NEXT_PUBLIC_GRAPHQL_API_URI: 'https://easy-deep-learning.org/graphql'
-        NEXT_PUBLIC_GRAPHQL_API_URI_SSR: 'http://backend:1337/graphql'
+        NEXT_PUBLIC_GRAPHQL_API_URI_SSR: 'https://backend:1337/graphql'
         NODE_ENV: production
     depends_on:
       - backend
