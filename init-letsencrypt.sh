@@ -75,9 +75,10 @@ for domain in "${domains[@]}"; do
 done
 
 echo "### Requesting Let's Encrypt certificate for $domainsAdmin ..."
-#Add $domainsAdmin to -d args
+domainAdmin_args=""
+#Join $domainsAdmin to -d args
 for domainAdmin in "${domainsAdmin[@]}"; do
-  domain_args="$domain_args -d $domainAdmin"
+  domainAdmin_args="$domainAdmin_args -d $domainAdmin"
 done
 
 # Select appropriate email arg
@@ -94,6 +95,16 @@ docker-compose -f docker-compose-prod.yml run --rm --entrypoint "\
     $staging_arg \
     $email_arg \
     $domain_args \
+    --rsa-key-size $rsa_key_size \
+    --agree-tos \
+    --force-renewal" certbot
+echo
+
+docker-compose -f docker-compose-prod.yml run --rm --entrypoint "\
+  certbot certonly --webroot -w /var/www/certbot \
+    $staging_arg \
+    $email_arg \
+    $domainAdmin_args \
     --rsa-key-size $rsa_key_size \
     --agree-tos \
     --force-renewal" certbot
