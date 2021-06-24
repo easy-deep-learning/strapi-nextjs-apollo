@@ -6,7 +6,7 @@ services:
     build:
       context: ./nextjs-frontend
       args:
-        NEXT_PUBLIC_GRAPHQL_API_URI: 'http://easy-deep-learning.org/graphql'
+        NEXT_PUBLIC_GRAPHQL_API_URI: 'https://easy-deep-learning.org/graphql'
         NEXT_PUBLIC_GRAPHQL_API_URI_SSR: 'http://backend:1337/graphql'
         NODE_ENV: production
     depends_on:
@@ -37,6 +37,6 @@ services:
     build:
       context: ./strapi-backend
       args:
-        NODE_ENV: development # till SSL enabled
+        NODE_ENV: production
     ports:
       - "1337:1337"
