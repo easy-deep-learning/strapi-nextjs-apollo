@@ -6,6 +6,7 @@ if ! [ -x "$(command -v docker-compose)" ]; then
 fi
 
 domains=(easy-deep-learning.org www.easy-deep-learning.org)
+domainsAdmin=(admin.easy-deep-learning.org www.admin.easy-deep-learning.org)
 rsa_key_size=4096
 data_path="./nginx/certbot"
 email="easy.deep.learning@gmail.com" # Adding a valid address is strongly recommended
@@ -27,9 +28,12 @@ if [ ! -e "$data_path/conf/options-ssl-nginx.conf" ] || [ ! -e "$data_path/conf/
   echo
 fi
 
-echo "### Creating dummy certificate for $domains ..."
+echo "### Creating dummy certificate for $domains and $domainsAdmin ..."
 path="/etc/letsencrypt/live/$domains"
+pathAdmin="/etc/letsencrypt/live/$domainsAdmin" 
+
 mkdir -p "$data_path/conf/live/$domains"
+mkdir -p "$data_path/conf/live/$domainsAdmin"
 
 docker-compose -f docker-compose-prod.yml run --rm --entrypoint "\
   openssl req -x509 -nodes -newkey rsa:$rsa_key_size -days 1\
@@ -38,6 +42,12 @@ docker-compose -f docker-compose-prod.yml run --rm --entrypoint "\
     -subj '/CN=localhost'" certbot
 echo
 
+docker-compose -f docker-compose-prod.yml run --rm --entrypoint "\
+  openssl req -x509 -nodes -newkey rsa:$rsa_key_size -days 1\
+    -keyout '$pathAdmin/privkey.pem' \
+    -out '$pathAdmin/fullchain.pem' \
+    -subj '/CN=localhost'" certbot
+echo
 
 echo "### Starting nginx ..."
 docker-compose -f docker-compose-prod.yml up --force-recreate -d nginx
@@ -50,12 +60,24 @@ docker-compose -f docker-compose-prod.yml run --rm --entrypoint "\
   rm -Rf /etc/letsencrypt/renewal/$domains.conf" certbot
 echo
 
+echo "### Deleting dummy certificate for $domainsAdmin ..."
+docker-compose -f docker-compose-prod.yml run --rm --entrypoint "\
+  rm -Rf /etc/letsencrypt/live/$domainsAdmin && \
+  rm -Rf /etc/letsencrypt/archive/$domainsAdmin && \
+  rm -Rf /etc/letsencrypt/renewal/$domainsAdmin.conf" certbot
+echo
 
 echo "### Requesting Let's Encrypt certificate for $domains ..."
 #Join $domains to -d args
 domain_args=""
 for domain in "${domains[@]}"; do
   domain_args="$domain_args -d $domain"
+done
+
+echo "### Requesting Let's Encrypt certificate for $domainsAdmin ..."
+#Add $domainsAdmin to -d args
+for domainAdmin in "${domainsAdmin[@]}"; do
+  domain_args="$domain_args -d $domainAdmin"
 done
 
 # Select appropriate email arg
