@@ -2,3 +2,4 @@
 sqlite/.tmp
 nginx/certbot/conf/
 
+.env

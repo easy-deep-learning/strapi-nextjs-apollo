@@ -43,8 +43,9 @@ type UserPermissionsPasswordPayload {
 
 type Article {
   id: ID!
-  created_at: DateTime!
-  updated_at: DateTime!
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   title: String
   content: String
   published_at: DateTime
@@ -63,8 +64,9 @@ type ArticleAggregator {
 
 type ArticleGroupBy {
   id: [ArticleConnectionId]
-  created_at: [ArticleConnectionCreated_at]
-  updated_at: [ArticleConnectionUpdated_at]
+  _id: [ArticleConnection_id]
+  createdAt: [ArticleConnectionCreatedAt]
+  updatedAt: [ArticleConnectionUpdatedAt]
   title: [ArticleConnectionTitle]
   content: [ArticleConnectionContent]
   published_at: [ArticleConnectionPublished_at]
@@ -75,12 +77,17 @@ type ArticleConnectionId {
   connection: ArticleConnection
 }
 
-type ArticleConnectionCreated_at {
+type ArticleConnection_id {
+  key: ID
+  connection: ArticleConnection
+}
+
+type ArticleConnectionCreatedAt {
   key: DateTime
   connection: ArticleConnection
 }
 
-type ArticleConnectionUpdated_at {
+type ArticleConnectionUpdatedAt {
   key: DateTime
   connection: ArticleConnection
 }
@@ -143,8 +150,9 @@ type deleteArticlePayload {
 
 type Category {
   id: ID!
-  created_at: DateTime!
-  updated_at: DateTime!
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   name: String!
   published_at: DateTime
   restaurants(sort: String, limit: Int, start: Int, where: JSON): [Restaurant]
@@ -163,8 +171,9 @@ type CategoryAggregator {
 
 type CategoryGroupBy {
   id: [CategoryConnectionId]
-  created_at: [CategoryConnectionCreated_at]
-  updated_at: [CategoryConnectionUpdated_at]
+  _id: [CategoryConnection_id]
+  createdAt: [CategoryConnectionCreatedAt]
+  updatedAt: [CategoryConnectionUpdatedAt]
   name: [CategoryConnectionName]
   published_at: [CategoryConnectionPublished_at]
 }
@@ -174,12 +183,17 @@ type CategoryConnectionId {
   connection: CategoryConnection
 }
 
-type CategoryConnectionCreated_at {
+type CategoryConnection_id {
+  key: ID
+  connection: CategoryConnection
+}
+
+type CategoryConnectionCreatedAt {
   key: DateTime
   connection: CategoryConnection
 }
 
-type CategoryConnectionUpdated_at {
+type CategoryConnectionUpdatedAt {
   key: DateTime
   connection: CategoryConnection
 }
@@ -237,8 +251,9 @@ type deleteCategoryPayload {
 
 type Restaurant {
   id: ID!
-  created_at: DateTime!
-  updated_at: DateTime!
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   name: String!
   description: String
   published_at: DateTime
@@ -258,8 +273,9 @@ type RestaurantAggregator {
 
 type RestaurantGroupBy {
   id: [RestaurantConnectionId]
-  created_at: [RestaurantConnectionCreated_at]
-  updated_at: [RestaurantConnectionUpdated_at]
+  _id: [RestaurantConnection_id]
+  createdAt: [RestaurantConnectionCreatedAt]
+  updatedAt: [RestaurantConnectionUpdatedAt]
   name: [RestaurantConnectionName]
   description: [RestaurantConnectionDescription]
   published_at: [RestaurantConnectionPublished_at]
@@ -270,12 +286,17 @@ type RestaurantConnectionId {
   connection: RestaurantConnection
 }
 
-type RestaurantConnectionCreated_at {
+type RestaurantConnection_id {
+  key: ID
+  connection: RestaurantConnection
+}
+
+type RestaurantConnectionCreatedAt {
   key: DateTime
   connection: RestaurantConnection
 }
 
-type RestaurantConnectionUpdated_at {
+type RestaurantConnectionUpdatedAt {
   key: DateTime
   connection: RestaurantConnection
 }
@@ -340,8 +361,9 @@ type deleteRestaurantPayload {
 
 type YouTubeMoves {
   id: ID!
-  created_at: DateTime!
-  updated_at: DateTime!
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   name: String
   description: String
   url: String!
@@ -361,8 +383,9 @@ type YouTubeMovesAggregator {
 
 type YouTubeMovesGroupBy {
   id: [YouTubeMovesConnectionId]
-  created_at: [YouTubeMovesConnectionCreated_at]
-  updated_at: [YouTubeMovesConnectionUpdated_at]
+  _id: [YouTubeMovesConnection_id]
+  createdAt: [YouTubeMovesConnectionCreatedAt]
+  updatedAt: [YouTubeMovesConnectionUpdatedAt]
   name: [YouTubeMovesConnectionName]
   description: [YouTubeMovesConnectionDescription]
   url: [YouTubeMovesConnectionUrl]
@@ -374,12 +397,17 @@ type YouTubeMovesConnectionId {
   connection: YouTubeMovesConnection
 }
 
-type YouTubeMovesConnectionCreated_at {
+type YouTubeMovesConnection_id {
+  key: ID
+  connection: YouTubeMovesConnection
+}
+
+type YouTubeMovesConnectionCreatedAt {
   key: DateTime
   connection: YouTubeMovesConnection
 }
 
-type YouTubeMovesConnectionUpdated_at {
+type YouTubeMovesConnectionUpdatedAt {
   key: DateTime
   connection: YouTubeMovesConnection
 }
@@ -449,8 +477,9 @@ type deleteYouTubeMovePayload {
 
 type I18NLocale {
   id: ID!
-  created_at: DateTime!
-  updated_at: DateTime!
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   name: String
   code: String
 }
@@ -471,8 +500,9 @@ input editLocaleInput {
 
 type UploadFile {
   id: ID!
-  created_at: DateTime!
-  updated_at: DateTime!
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   name: String!
   alternativeText: String
   caption: String
@@ -531,8 +561,9 @@ type UploadFileAggregatorMax {
 
 type UploadFileGroupBy {
   id: [UploadFileConnectionId]
-  created_at: [UploadFileConnectionCreated_at]
-  updated_at: [UploadFileConnectionUpdated_at]
+  _id: [UploadFileConnection_id]
+  createdAt: [UploadFileConnectionCreatedAt]
+  updatedAt: [UploadFileConnectionUpdatedAt]
   name: [UploadFileConnectionName]
   alternativeText: [UploadFileConnectionAlternativeText]
   caption: [UploadFileConnectionCaption]
@@ -554,12 +585,17 @@ type UploadFileConnectionId {
   connection: UploadFileConnection
 }
 
-type UploadFileConnectionCreated_at {
+type UploadFileConnection_id {
+  key: ID
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionCreatedAt {
   key: DateTime
   connection: UploadFileConnection
 }
 
-type UploadFileConnectionUpdated_at {
+type UploadFileConnectionUpdatedAt {
   key: DateTime
   connection: UploadFileConnection
 }
@@ -684,6 +720,7 @@ type deleteFilePayload {
 
 type UsersPermissionsPermission {
   id: ID!
+  _id: ID!
   type: String!
   controller: String!
   action: String!
@@ -694,6 +731,7 @@ type UsersPermissionsPermission {
 
 type UsersPermissionsRole {
   id: ID!
+  _id: ID!
   name: String!
   description: String
   type: String
@@ -714,12 +752,18 @@ type UsersPermissionsRoleAggregator {
 
 type UsersPermissionsRoleGroupBy {
   id: [UsersPermissionsRoleConnectionId]
+  _id: [UsersPermissionsRoleConnection_id]
   name: [UsersPermissionsRoleConnectionName]
   description: [UsersPermissionsRoleConnectionDescription]
   type: [UsersPermissionsRoleConnectionType]
 }
 
 type UsersPermissionsRoleConnectionId {
+  key: ID
+  connection: UsersPermissionsRoleConnection
+}
+
+type UsersPermissionsRoleConnection_id {
   key: ID
   connection: UsersPermissionsRoleConnection
 }
@@ -786,8 +830,9 @@ type deleteRolePayload {
 
 type UsersPermissionsUser {
   id: ID!
-  created_at: DateTime!
-  updated_at: DateTime!
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   username: String!
   email: String!
   provider: String
@@ -809,8 +854,9 @@ type UsersPermissionsUserAggregator {
 
 type UsersPermissionsUserGroupBy {
   id: [UsersPermissionsUserConnectionId]
-  created_at: [UsersPermissionsUserConnectionCreated_at]
-  updated_at: [UsersPermissionsUserConnectionUpdated_at]
+  _id: [UsersPermissionsUserConnection_id]
+  createdAt: [UsersPermissionsUserConnectionCreatedAt]
+  updatedAt: [UsersPermissionsUserConnectionUpdatedAt]
   username: [UsersPermissionsUserConnectionUsername]
   email: [UsersPermissionsUserConnectionEmail]
   provider: [UsersPermissionsUserConnectionProvider]
@@ -824,12 +870,17 @@ type UsersPermissionsUserConnectionId {
   connection: UsersPermissionsUserConnection
 }
 
-type UsersPermissionsUserConnectionCreated_at {
+type UsersPermissionsUserConnection_id {
+  key: ID
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionCreatedAt {
   key: DateTime
   connection: UsersPermissionsUserConnection
 }
 
-type UsersPermissionsUserConnectionUpdated_at {
+type UsersPermissionsUserConnectionUpdatedAt {
   key: DateTime
   connection: UsersPermissionsUserConnection
 }
@@ -917,7 +968,7 @@ type deleteUserPayload {
   user: UsersPermissionsUser
 }
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Article | ArticleConnection | ArticleAggregator | ArticleGroupBy | ArticleConnectionId | ArticleConnectionCreated_at | ArticleConnectionUpdated_at | ArticleConnectionTitle | ArticleConnectionContent | ArticleConnectionPublished_at | createArticlePayload | updateArticlePayload | deleteArticlePayload | Category | CategoryConnection | CategoryAggregator | CategoryGroupBy | CategoryConnectionId | CategoryConnectionCreated_at | CategoryConnectionUpdated_at | CategoryConnectionName | CategoryConnectionPublished_at | createCategoryPayload | updateCategoryPayload | deleteCategoryPayload | Restaurant | RestaurantConnection | RestaurantAggregator | RestaurantGroupBy | RestaurantConnectionId | RestaurantConnectionCreated_at | RestaurantConnectionUpdated_at | RestaurantConnectionName | RestaurantConnectionDescription | RestaurantConnectionPublished_at | createRestaurantPayload | updateRestaurantPayload | deleteRestaurantPayload | YouTubeMoves | YouTubeMovesConnection | YouTubeMovesAggregator | YouTubeMovesGroupBy | YouTubeMovesConnectionId | YouTubeMovesConnectionCreated_at | YouTubeMovesConnectionUpdated_at | YouTubeMovesConnectionName | YouTubeMovesConnectionDescription | YouTubeMovesConnectionUrl | YouTubeMovesConnectionPublished_at | createYouTubeMovePayload | updateYouTubeMovePayload | deleteYouTubeMovePayload | I18NLocale | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnectionCreated_at | UploadFileConnectionUpdated_at | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_metadata | deleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionCreated_at | UsersPermissionsUserConnectionUpdated_at | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | createUserPayload | updateUserPayload | deleteUserPayload
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Article | ArticleConnection | ArticleAggregator | ArticleGroupBy | ArticleConnectionId | ArticleConnection_id | ArticleConnectionCreatedAt | ArticleConnectionUpdatedAt | ArticleConnectionTitle | ArticleConnectionContent | ArticleConnectionPublished_at | createArticlePayload | updateArticlePayload | deleteArticlePayload | Category | CategoryConnection | CategoryAggregator | CategoryGroupBy | CategoryConnectionId | CategoryConnection_id | CategoryConnectionCreatedAt | CategoryConnectionUpdatedAt | CategoryConnectionName | CategoryConnectionPublished_at | createCategoryPayload | updateCategoryPayload | deleteCategoryPayload | Restaurant | RestaurantConnection | RestaurantAggregator | RestaurantGroupBy | RestaurantConnectionId | RestaurantConnection_id | RestaurantConnectionCreatedAt | RestaurantConnectionUpdatedAt | RestaurantConnectionName | RestaurantConnectionDescription | RestaurantConnectionPublished_at | createRestaurantPayload | updateRestaurantPayload | deleteRestaurantPayload | YouTubeMoves | YouTubeMovesConnection | YouTubeMovesAggregator | YouTubeMovesGroupBy | YouTubeMovesConnectionId | YouTubeMovesConnection_id | YouTubeMovesConnectionCreatedAt | YouTubeMovesConnectionUpdatedAt | YouTubeMovesConnectionName | YouTubeMovesConnectionDescription | YouTubeMovesConnectionUrl | YouTubeMovesConnectionPublished_at | createYouTubeMovePayload | updateYouTubeMovePayload | deleteYouTubeMovePayload | I18NLocale | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnection_id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_metadata | deleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionCreatedAt | UsersPermissionsUserConnectionUpdatedAt | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | createUserPayload | updateUserPayload | deleteUserPayload
 
 input InputID {
   id: ID!

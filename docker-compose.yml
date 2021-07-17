@@ -29,11 +29,12 @@ services:
   backend:
     image: strapi/strapi
     environment:
-      NODE_ENV: development # till SSL enabled       
+      NODE_ENV: development
+      MONGO_DB_DATABASE_URI: ${MONGO_DB_DATABASE_URI}
+      MONGO_DB_DATABASE_NAME: ${MONGO_DB_DATABASE_NAME}
     ports:
       - "1337:1337"
     working_dir: /app
     command: yarn run backend:dev
     volumes:
-      - ./sqlite/.tmp:/app/.tmp
       - ./strapi-backend:/app:cached
