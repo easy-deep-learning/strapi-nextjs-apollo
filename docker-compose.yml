@@ -3,7 +3,7 @@ version: '3'
 services:
 
   frontend:
-    image: node:16-alpine3.11
+    image: node:14-alpine3.12
     working_dir: /app
     command: yarn run frontend:dev
     volumes:
