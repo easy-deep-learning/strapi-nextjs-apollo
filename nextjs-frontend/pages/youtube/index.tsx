@@ -33,8 +33,8 @@ const GET_YOUTUBE_MOVIES = gql`
       name
       url
       description
-      created_at
-      updated_at
+      createdAt
+      updatedAt
       published_at
     }
   }

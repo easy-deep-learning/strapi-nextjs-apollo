@@ -29,8 +29,8 @@ const GET_YOUTUBE_MOVIE = gql`
       name
       url
       description
-      created_at
-      updated_at
+      createdAt
+      updatedAt
       published_at
     }
   }
@@ -51,7 +51,7 @@ const UPDATE_YOUTUBE_MOVIE = gql`
         name
         description
         url
-        updated_at
+        updatedAt
       }
     }
   }
